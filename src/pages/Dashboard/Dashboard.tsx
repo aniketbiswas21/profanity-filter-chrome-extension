@@ -4,6 +4,9 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { DashboardContainer } from "./Dashboard.styles";
 import "react-circular-progressbar/dist/styles.css";
 import { Menu, MenuItem } from "../../components";
+import ProfanityFilter from "../../core/ProfanityFilter";
+
+const profanityFilter = new ProfanityFilter({});
 
 const Dashboard = () => {
   return (
