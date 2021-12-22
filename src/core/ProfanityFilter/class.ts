@@ -8,6 +8,7 @@ class ProfanityFilter {
   private placeholder: string;
   private replaceRegex: RegExp;
   private profanityMap: Map<string, number>;
+  private count: number;
 
   constructor({
     profanityList = [...Array.from(new Set(badWords))],
@@ -27,6 +28,7 @@ class ProfanityFilter {
     this.splitRegex = /\b/;
     this.replaceRegex = /\w/g;
     this.profanityMap = new Map();
+    this.count = 0;
   }
 
   get getProfanityWordList(): string[] {
@@ -47,8 +49,21 @@ class ProfanityFilter {
   /**
    * Returns a map of profane words found in the text with their occurences
    */
-  get getProfanityMap(): Map<string, number> {
-    return this.profanityMap;
+  get getProfanityMap(): Record<string, number> {
+    const profanityMap: Record<string, number> = {};
+
+    Array.from(this.profanityMap.keys()).forEach((key) => {
+      profanityMap[key] = this.profanityMap.get(key)!;
+    });
+
+    return profanityMap;
+  }
+
+  /**
+   * Returns the number of profane words found in the text
+   */
+  get totalProfaneWords(): number {
+    return this.count;
   }
 
   /**
@@ -100,7 +115,11 @@ class ProfanityFilter {
     return string
       .split(this.splitRegex)
       .map((word) => {
-        return this.isProfane(word) ? this.replaceWord(word) : word;
+        if (this.isProfane(word)) {
+          this.count++;
+          return this.replaceWord(word);
+        }
+        return word;
       })
       .join((this.splitRegex.exec(string) as string[])[0]);
   }

@@ -5,12 +5,15 @@ import { DashboardContainer } from "./Dashboard.styles";
 import "react-circular-progressbar/dist/styles.css";
 import { Menu, MenuItem } from "../../components";
 import ProfanityFilter from "../../core/ProfanityFilter";
+import useDOMEvaluator from "../../hooks/useDOMEvaluator";
 
 const profanityFilter = new ProfanityFilter({});
 
 const Dashboard = () => {
+  const body = useDOMEvaluator();
   return (
     <DashboardContainer>
+      {console.log(body)}
       <h2 className="dashboard-title">Control Panel</h2>
       <div className="progress-container">
         <div className="progress-indicator">
