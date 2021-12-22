@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { DOMMessage, DOMMessageResponse } from "../chromeServices/types";
+import { useEffect } from "react";
+
+import { DOMMessage } from "../chromeServices/types";
 
 const useDOMEvaluator = () => {
   const sanitize = async () => {

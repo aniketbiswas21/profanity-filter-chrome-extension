@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 import { DashboardContainer } from "./Dashboard.styles";
-import "react-circular-progressbar/dist/styles.css";
 import { Menu, MenuItem } from "../../components";
-import ProfanityFilter from "../../core/ProfanityFilter";
 import useDOMEvaluator from "../../hooks/useDOMEvaluator";
 
-const profanityFilter = new ProfanityFilter({});
-
 const Dashboard = () => {
-  const body = useDOMEvaluator();
+  const results = useDOMEvaluator();
   return (
     <DashboardContainer>
-      {console.log(body)}
+      {console.log(results)}
       <h2 className="dashboard-title">Control Panel</h2>
       <div className="progress-container">
         <div className="progress-indicator">
