@@ -79,6 +79,7 @@ Profanity filter is a fully customizable chrome extension that blocks any explic
 - Get a detailed report of all the explicit words.
 - Add/Remove words to the whitelist and blacklist.
 - Customizable placeholder.
+- User settings sync across different devices using the same gmail account(if enabled).
 
 <!-- GETTING STARTED -->
 
