@@ -12,7 +12,6 @@ const Dashboard = () => {
   const [viewReport, setViewReport] = useState(false);
   return (
     <DashboardContainer>
-      {console.log(results)}
       <h2 className="dashboard-title">Control Panel</h2>
       <div className="progress-container">
         <div className="progress-indicator">
