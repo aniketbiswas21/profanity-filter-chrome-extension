@@ -42,10 +42,10 @@ const messagesFromReactAppListener = async (
         placeholder,
       });
 
-      chrome.storage.local.set({ enabled: enabled });
-      chrome.storage.local.set({ blacklist: blacklist });
-      chrome.storage.local.set({ whitelist: whitelist });
-      chrome.storage.local.set({ placeholder: placeholder });
+      chrome.storage.sync.set({ enabled: enabled });
+      chrome.storage.sync.set({ blacklist: blacklist });
+      chrome.storage.sync.set({ whitelist: whitelist });
+      chrome.storage.sync.set({ placeholder: placeholder });
     }
 
     // Send the response back to the React app
@@ -62,10 +62,10 @@ const messagesFromReactAppListener = async (
 
   if (msg.type === "REPLACE_DOM") {
     const [enabled, blacklist, whitelist, placeholder] = await Promise.all([
-      chrome.storage.local.get(["enabled"]),
-      chrome.storage.local.get(["blacklist"]),
-      chrome.storage.local.get(["whitelist"]),
-      chrome.storage.local.get(["placeholder"]),
+      chrome.storage.sync.get(["enabled"]),
+      chrome.storage.sync.get(["blacklist"]),
+      chrome.storage.sync.get(["whitelist"]),
+      chrome.storage.sync.get(["placeholder"]),
     ]);
 
     applySettings({

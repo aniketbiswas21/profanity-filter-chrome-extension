@@ -27,6 +27,19 @@ export const DashboardContainer = styled.div`
     font-weight: bold;
   }
 
+  .report-text {
+    font-size: 0.8rem;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .empty-map {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
+
   .action-container {
     display: flex;
     flex-direction: row;
