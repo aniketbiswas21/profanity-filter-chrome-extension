@@ -29,8 +29,6 @@ const messagesFromReactAppListener = async (
     response: DOMMessageResponse | string | Record<string, any>
   ) => void
 ) => {
-  console.log("[content.js]. Message received", msg);
-
   if (msg.type === "APPLY_SETTINGS") {
     if (msg.payload) {
       const { blacklist, enabled, placeholder, whitelist } = msg.payload;

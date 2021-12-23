@@ -1,11 +1,9 @@
-import { DOMMessage, DOMMessageResponse } from "./types";
+import { DOMMessage } from "./types";
 
 const triggerProfanityFilter = async (
-  tabId: number,
+  _tabId: number,
   changeInfo: chrome.tabs.TabChangeInfo
 ) => {
-  console.log("[background.js]. triggerProfanityFilter");
-  console.log(changeInfo, "change info");
   if (changeInfo.status === "complete") {
     if (chrome.tabs) {
       const tabs = await chrome.tabs.query({
@@ -15,9 +13,7 @@ const triggerProfanityFilter = async (
       chrome.tabs.sendMessage(
         tabs[0].id || 0,
         { type: "REPLACE_DOM" } as DOMMessage,
-        (response: string) => {
-          console.log(response);
-        }
+        (_response: string) => {}
       );
     }
   }

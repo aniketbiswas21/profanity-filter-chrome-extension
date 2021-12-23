@@ -20,6 +20,7 @@ const useDOMEvaluator = () => {
     profanityCount: 0,
     profanityMap: {},
   });
+  // santizes the page on demand
   const sanitize = async () => {
     if (chrome.tabs) {
       const tabs = await chrome.tabs.query({
@@ -38,6 +39,7 @@ const useDOMEvaluator = () => {
     }
   };
 
+  // fetches the profanity meta data of the current page
   const fetchProfanityMetaData = async () => {
     if (chrome.tabs) {
       const tabs = await chrome.tabs.query({
@@ -58,12 +60,12 @@ const useDOMEvaluator = () => {
             placeholder: response.placeholder,
             enabled: response.enabled,
           });
-          console.log(response);
         }
       );
     }
   };
 
+  // applies the user configured settings to the extension(applies globally and syncs across browsers(if enabled))
   const applySettings = async () => {
     if (chrome.tabs) {
       const tabs = await chrome.tabs.query({
