@@ -51,16 +51,36 @@ const useDOMEvaluator = () => {
       chrome.tabs.sendMessage(
         tabs[0].id || 0,
         { type: "META_DOM" } as DOMMessage,
-        (response: Record<string, any>) => {
-          setResults({
-            ...results,
-            profanityCount: response.profanityCount,
-            profanityMap: response.profanityMap,
-            whitelist: response.whitelist,
-            blacklist: response.blacklist,
-            placeholder: response.placeholder,
-            enabled: response.enabled,
-          });
+        async (response: Record<string, any>) => {
+          if (response) {
+            setResults({
+              ...results,
+              profanityCount: response.profanityCount,
+              profanityMap: response.profanityMap,
+              whitelist: response.whitelist,
+              blacklist: response.blacklist,
+              placeholder: response.placeholder,
+              enabled: response.enabled,
+            });
+          } else {
+            const [enabled, blacklist, whitelist, placeholder] =
+              await Promise.all([
+                chrome.storage.sync.get(["enabled"]),
+                chrome.storage.sync.get(["blacklist"]),
+                chrome.storage.sync.get(["whitelist"]),
+                chrome.storage.sync.get(["placeholder"]),
+              ]);
+
+            setResults({
+              ...results,
+              profanityCount: 0,
+              profanityMap: {},
+              whitelist: whitelist.whitelist || [],
+              blacklist: blacklist.blacklist || [],
+              placeholder: placeholder.placeholder || "*",
+              enabled: enabled.enabled || true,
+            });
+          }
         }
       );
     }
