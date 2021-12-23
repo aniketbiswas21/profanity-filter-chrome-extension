@@ -86,6 +86,7 @@ Profanity filter is a fully customizable chrome extension that blocks any explic
 ## Installation
 
 - Clone the project.
+- Run `yarn install`/`npm install`(depending on your preferred package manager) in the root of the project.
 - Run `yarn run build`/`npm run build`(depending on your preferred package manager) in the root of the project.
 - Copy the generated `build` folder in the root directory of the project to a destination of your choice.
 - Open Google chrome and go the url: [chrome://extensions/](chrome://extensions/)
