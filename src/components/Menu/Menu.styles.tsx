@@ -1,15 +1,20 @@
 import styled from "styled-components";
 
+interface MenuItemProps {
+  type: "switch" | "input" | "tags";
+}
+
 export const MenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 
-export const MenuItemContainer = styled.div`
+export const MenuItemContainer = styled.div<MenuItemProps>`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: ${(props) => (props.type === "switch" ? "row" : "column")};
+  justify-content: ${(props) =>
+    props.type === "switch" ? "space-between" : "stretch"};
   padding: 0.5rem 0;
   border-bottom: 0.3px solid ${({ theme }) => theme.border};
   /* border-top: 0.3px solid ${({ theme }) => theme.border}; */
@@ -82,5 +87,41 @@ export const MenuItemContainer = styled.div`
         transform: translateX(25px);
       }
     }
+  }
+
+  .input-box {
+    padding: 0.8rem;
+    background-color: #00000057;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .tags-div {
+    background-color: #00000057;
+    padding: 0.8rem;
+    border-radius: 5px;
+    cursor: text;
+  }
+
+  .tag-box {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .custom-tag {
+    background-color: ${({ theme }) => theme.secondaryColor};
+    color: #fff;
+    border-color: ${({ theme }) => theme.secondaryColor};
+    cursor: pointer;
   }
 `;

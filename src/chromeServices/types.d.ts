@@ -1,5 +1,8 @@
+import { IResult } from "../hooks/useDOMEvaluator";
+
 export type DOMMessage = {
-  type: "GET_DOM" | "REPLACE_DOM" | "META_DOM";
+  type: "APPLY_SETTINGS" | "REPLACE_DOM" | "META_DOM";
+  payload?: IResult;
 };
 
 export type DOMMessageResponse = {

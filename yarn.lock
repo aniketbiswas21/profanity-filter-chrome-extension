@@ -1815,6 +1815,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-tagsinput@^3.19.9":
+  version "3.19.9"
+  resolved "https://registry.yarnpkg.com/@types/react-tagsinput/-/react-tagsinput-3.19.9.tgz#0bcfa38ab235cca043d31908d492f79e3f7f207c"
+  integrity sha512-NisSj7GS4q6jaU9qWtXnHoCmcW4vKqNC9m9CQ0HloD5YbWXaHxJ8HkELSsQb2EKIM9pX6hbJENkhZ4ApiJ4ygA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^17.0.20":
   version "17.0.37"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.37.tgz#6884d0aa402605935c397ae689deed115caad959"
@@ -7166,6 +7173,11 @@ react-scripts@5.0.0:
     workbox-webpack-plugin "^6.4.1"
   optionalDependencies:
     fsevents "^2.3.2"
+
+react-tagsinput@^3.19.0:
+  version "3.19.0"
+  resolved "https://registry.yarnpkg.com/react-tagsinput/-/react-tagsinput-3.19.0.tgz#6e3b45595f2d295d4657bf194491988f948caabf"
+  integrity sha512-ni+/qnZrYrvLg83LtTFHErKy1KQHL0fi0Y6C5jgC1dNUePE9cS/OlQ4XH6JRSjv9GGoeVE0R/ujSBaS1uzCRYQ==
 
 react@^17.0.2:
   version "17.0.2"

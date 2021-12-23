@@ -7,6 +7,7 @@ export const GlobalStyles = createGlobalStyle`
   *::before {
     box-sizing: border-box;
   }
+
   body {
     background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};
@@ -15,11 +16,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: "Roboto", sans-serif;
     overflow-x: hidden;
     width: 500px;
-    height: 400px;
+    height: fit-content;
     border-radius: 10px;
   }
-  /* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
   `;

@@ -3,8 +3,26 @@ import { DOMMessage, DOMMessageResponse } from "./types";
 
 const profanityFilter = new ProfanityFilter({});
 
+// Applies settings to the profanity filter
+const applySettings = ({
+  enabled,
+  blacklist,
+  whitelist,
+  placeholder,
+}: Partial<{
+  enabled: boolean;
+  blacklist: string[];
+  whitelist: string[];
+  placeholder: string;
+}>) => {
+  enabled !== undefined && profanityFilter.setEnabled(enabled);
+  blacklist && profanityFilter.blacklistWords(blacklist);
+  whitelist && profanityFilter.whitelistWords(whitelist);
+  placeholder && profanityFilter.setPlaceHolderText(placeholder);
+};
+
 // Function called when a new message is received
-const messagesFromReactAppListener = (
+const messagesFromReactAppListener = async (
   msg: DOMMessage,
   _sender: chrome.runtime.MessageSender,
   sendResponse: (
@@ -13,36 +31,55 @@ const messagesFromReactAppListener = (
 ) => {
   console.log("[content.js]. Message received", msg);
 
-  if (msg.type === "GET_DOM") {
-    // Retreves all the headlines from the DOM
-    const headlines = Array.from(document.getElementsByTagName<"h1">("h1")).map(
-      (h1) => {
-        return { text: h1.innerText, class: h1.className };
-      }
-    );
+  if (msg.type === "APPLY_SETTINGS") {
+    if (msg.payload) {
+      const { blacklist, enabled, placeholder, whitelist } = msg.payload;
 
-    console.log(headlines, "headlines");
+      applySettings({
+        enabled,
+        blacklist,
+        whitelist,
+        placeholder,
+      });
 
-    // Retrieves all the paragraphs from the DOM
-    const paragraphs = Array.from(document.getElementsByTagName<"p">("p")).map(
-      (p) => {
-        return { text: p.innerText, class: p.className };
-      }
-    );
-
-    console.log(paragraphs, "paragraphs");
-
-    const content = [...headlines, ...paragraphs];
-
-    const response: DOMMessageResponse = {
-      content,
-    };
+      chrome.storage.local.set({ enabled: enabled });
+      chrome.storage.local.set({ blacklist: blacklist });
+      chrome.storage.local.set({ whitelist: whitelist });
+      chrome.storage.local.set({ placeholder: placeholder });
+    }
 
     // Send the response back to the React app
-    sendResponse(response);
+    sendResponse({
+      profanityCount: profanityFilter.totalProfaneWords,
+      profanityMap: profanityFilter.getProfanityMap,
+      whitelist: profanityFilter.getWhiteListWordList,
+      blacklist: profanityFilter.getBlackListWordList,
+      profanityList: profanityFilter.getProfanityWordList,
+      placeholder: profanityFilter.getPlaceholderText,
+      enabled: profanityFilter.isEnabled,
+    });
   }
 
   if (msg.type === "REPLACE_DOM") {
+    const [enabled, blacklist, whitelist, placeholder] = await Promise.all([
+      chrome.storage.local.get(["enabled"]),
+      chrome.storage.local.get(["blacklist"]),
+      chrome.storage.local.get(["whitelist"]),
+      chrome.storage.local.get(["placeholder"]),
+    ]);
+
+    applySettings({
+      enabled: enabled.enabled,
+      blacklist: blacklist.blacklist,
+      whitelist: whitelist.whitelist,
+      placeholder: placeholder.placeholder,
+    });
+
+    if (!enabled.enabled) {
+      sendResponse("disabled");
+      return;
+    }
+
     const nodes = document.querySelectorAll("p, h1, h2, h3, h4, h5, h6");
 
     //    @ts-ignore
@@ -71,9 +108,11 @@ const messagesFromReactAppListener = (
     const response: Record<string, any> = {
       profanityCount: profanityFilter.totalProfaneWords,
       profanityMap: profanityFilter.getProfanityMap,
-      whiteList: profanityFilter.getWhiteWordList,
+      whitelist: profanityFilter.getWhiteListWordList,
+      blacklist: profanityFilter.getBlackListWordList,
       profanityList: profanityFilter.getProfanityWordList,
       placeholder: profanityFilter.getPlaceholderText,
+      enabled: profanityFilter.isEnabled,
     };
 
     sendResponse(response);

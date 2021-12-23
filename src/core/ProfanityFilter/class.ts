@@ -3,12 +3,14 @@ import badWords from "../data/badWords";
 class ProfanityFilter {
   private profanityList: string[];
   private whiteList: string[];
+  private blackList: string[];
   private regex: RegExp;
   private splitRegex: RegExp;
   private placeholder: string;
   private replaceRegex: RegExp;
   private profanityMap: Map<string, number>;
   private count: number;
+  private enabled: boolean = true;
 
   constructor({
     profanityList = [...Array.from(new Set(badWords))],
@@ -22,6 +24,7 @@ class ProfanityFilter {
     placeholder?: string;
   }) {
     this.profanityList = profanityList.concat(blackList);
+    this.blackList = blackList;
     this.whiteList = whiteList;
     this.placeholder = placeholder;
     this.regex = /[^a-zA-Z0-9|\$|\@]|\^/g;
@@ -35,8 +38,12 @@ class ProfanityFilter {
     return this.profanityList;
   }
 
-  get getWhiteWordList(): string[] {
+  get getWhiteListWordList(): string[] {
     return this.whiteList;
+  }
+
+  get getBlackListWordList(): string[] {
+    return this.blackList;
   }
 
   /**
@@ -64,6 +71,17 @@ class ProfanityFilter {
    */
   get totalProfaneWords(): number {
     return this.count;
+  }
+
+  get isEnabled(): boolean {
+    return this.enabled;
+  }
+
+  /**
+   * Configures if to use the profanity filter
+   */
+  setEnabled(enabled: boolean) {
+    this.enabled = enabled;
   }
 
   /**
@@ -112,6 +130,11 @@ class ProfanityFilter {
    * @returns {string} Sanitized string
    */
   sanitize(string: string) {
+    // Return the same string if the filter is disabled
+    if (!this.isEnabled) {
+      return string;
+    }
+
     return string
       .split(this.splitRegex)
       .map((word) => {
@@ -135,6 +158,7 @@ class ProfanityFilter {
       }
 
       if (!this.profanityList.includes(word)) {
+        this.blackList.push(word);
         this.profanityList.push(word);
       }
     });

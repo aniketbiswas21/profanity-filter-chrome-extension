@@ -26,4 +26,21 @@ export const DashboardContainer = styled.div`
     font-size: 1rem;
     font-weight: bold;
   }
+
+  .action-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem 0;
+
+    button {
+      background-color: ${({ theme }) => theme.secondaryColor};
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      color: ${({ theme }) => theme.text};
+      cursor: pointer;
+    }
+  }
 `;

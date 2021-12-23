@@ -2,12 +2,13 @@ import React from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-import { DashboardContainer } from "./Dashboard.styles";
-import { Menu, MenuItem } from "../../components";
 import useDOMEvaluator from "../../hooks/useDOMEvaluator";
+import { Menu, MenuItem } from "../../components";
+import { MenuItemType } from "../../components/Menu/MenuItem";
+import { DashboardContainer } from "./Dashboard.styles";
 
 const Dashboard = () => {
-  const results = useDOMEvaluator();
+  const { results, setResults, applySettings } = useDOMEvaluator();
   return (
     <DashboardContainer>
       {console.log(results)}
@@ -15,9 +16,9 @@ const Dashboard = () => {
       <div className="progress-container">
         <div className="progress-indicator">
           <CircularProgressbar
-            value={200}
+            value={results.profanityCount}
             maxValue={100}
-            text={`200 words`}
+            text={`${results.profanityCount} words`}
             styles={buildStyles({
               rotation: 0.25,
               strokeLinecap: "butt",
@@ -31,10 +32,38 @@ const Dashboard = () => {
         </div>
         <p className="indicator-subheading">Profanity Counter</p>
       </div>
-
       <Menu>
-        <MenuItem content="Enable profanity filter globally" />
-        <MenuItem content="Use custom blacklisting" />
+        <MenuItem
+          content="Enable profanity filter globally"
+          id="enabled"
+          type={MenuItemType.Switch}
+          results={results}
+          setResults={setResults}
+        />
+        <MenuItem
+          content="Configure placeholder (replacement for a single alphabet)"
+          id="placeholder"
+          type={MenuItemType.Input}
+          results={results}
+          setResults={setResults}
+        />
+        <MenuItem
+          content="Blacklist words"
+          id="blacklist"
+          type={MenuItemType.Tags}
+          results={results}
+          setResults={setResults}
+        />
+        <MenuItem
+          content="Whitelist words"
+          id="whitelist"
+          type={MenuItemType.Tags}
+          results={results}
+          setResults={setResults}
+        />
+        <div className="action-container">
+          <button onClick={applySettings}>Apply Changes</button>
+        </div>
       </Menu>
     </DashboardContainer>
   );
