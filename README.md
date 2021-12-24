@@ -1,4 +1,4 @@
-<!-- # fireflyjs-core -->
+<!-- # profanity-filter-chrome-extension -->
 
 <!-- [![Linked![logo]()
 In][linkedin-shield]][linkedin-url] -->
@@ -62,20 +62,20 @@ In][linkedin-shield]][linkedin-url] -->
 
 ## About The Project
 
-<img src="https://user-images.githubusercontent.com/51146347/147246726-0c488374-cc9c-43d5-9a42-2ac446aca3b1.png" height="600px" />
+<img src="https://user-images.githubusercontent.com/51146347/147318735-1d5bef42-938b-445b-a6e2-1b1aab3c6ee6.png" height="600px" />
 
 Profanity filter is a fully customizable chrome extension that blocks any explicit content that is present in the web page. 
 
 ### Built With
 
-- [TypeScript](https://www.typescriptlang.org/)
-- [ReactJS](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/) - Made use of typescript because of the elegant type system it provides, which aids in avoiding silly bugs in terms of passing the wrong data type and also for the code IntelliSense, which makes it easier to work.
+- [ReactJS](https://reactjs.org/) - Made use of ReactJS because of the ease of development it provides in making a web app/chrome extension and the performance gains that come out of the box with React because of the use of Virtual DOM. 
 
 <!-- FEATURES -->
 
 ## Features
 
-- Blocks explicit content and replaces the text with a user defined placeholder.
+- Blocks explicit content and replaces the text with a user-defined placeholder.
 - Get a detailed report of all the explicit words.
 - Add/Remove words to the whitelist and blacklist.
 - Customizable placeholder.
