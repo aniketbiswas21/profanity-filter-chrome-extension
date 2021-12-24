@@ -13,25 +13,15 @@ export const MenuContainer = styled.div`
 
 export const MenuItemContainer = styled.div<MenuItemProps>`
   display: flex;
-  flex-direction: ${(props) =>
-    props.type === "switch" || props.type === "display" ? "row" : "column"};
+  flex-direction: ${(props) => (props.type === "switch" ? "row" : "column")};
   justify-content: ${(props) =>
-    props.type === "switch" || props.type === "display"
-      ? "space-between"
-      : "stretch"};
+    props.type === "switch" ? "space-between" : "stretch"};
   padding: 0.5rem 0;
   border-bottom: 0.3px solid ${({ theme }) => theme.border};
 
   .content-block {
     max-width: 70%;
     white-space: pre-wrap;
-  }
-
-  .display-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
   }
 
   .checkbox-container {

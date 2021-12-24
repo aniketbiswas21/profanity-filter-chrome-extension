@@ -2,10 +2,40 @@ import React, { useState } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-import useDOMEvaluator from "../../hooks/useDOMEvaluator";
+import useDOMEvaluator, { IResult } from "../../hooks/useDOMEvaluator";
 import { Menu, MenuItem } from "../../components";
 import { MenuItemType } from "../../components/Menu/MenuItem";
 import { DashboardContainer } from "./Dashboard.styles";
+import ReportItem from "../../components/ReportItem/ReportItem";
+
+interface IMenuItem {
+  content: string;
+  type: MenuItemType;
+  id: keyof IResult;
+}
+
+const menuItems: IMenuItem[] = [
+  {
+    content: "Enable profanity filter globally",
+    id: "enabled",
+    type: MenuItemType.Switch,
+  },
+  {
+    content: "Configure placeholder (replacement for a single alphabet)",
+    id: "placeholder",
+    type: MenuItemType.Input,
+  },
+  {
+    content: "Blacklist words",
+    id: "blacklist",
+    type: MenuItemType.Tags,
+  },
+  {
+    content: "Whitelist words",
+    id: "whitelist",
+    type: MenuItemType.Tags,
+  },
+];
 
 const Dashboard = () => {
   const { results, setResults, applySettings } = useDOMEvaluator();
@@ -45,15 +75,11 @@ const Dashboard = () => {
           <>
             {Object.keys(results.profanityMap).length > 0 ? (
               Object.keys(results.profanityMap).map((key) => (
-                <MenuItem
+                <ReportItem
                   key={key}
                   content={key}
                   data={parseInt(results.profanityMap[key] || "0")}
-                  id={key as any}
-                  type={MenuItemType.Display}
-                  results={results}
-                  setResults={setResults}
-                ></MenuItem>
+                />
               ))
             ) : (
               <div className="empty-map">
@@ -65,34 +91,16 @@ const Dashboard = () => {
           </>
         ) : (
           <>
-            <MenuItem
-              content="Enable profanity filter globally"
-              id="enabled"
-              type={MenuItemType.Switch}
-              results={results}
-              setResults={setResults}
-            />
-            <MenuItem
-              content="Configure placeholder (replacement for a single alphabet)"
-              id="placeholder"
-              type={MenuItemType.Input}
-              results={results}
-              setResults={setResults}
-            />
-            <MenuItem
-              content="Blacklist words"
-              id="blacklist"
-              type={MenuItemType.Tags}
-              results={results}
-              setResults={setResults}
-            />
-            <MenuItem
-              content="Whitelist words"
-              id="whitelist"
-              type={MenuItemType.Tags}
-              results={results}
-              setResults={setResults}
-            />
+            {menuItems.map((item) => (
+              <MenuItem
+                key={item.id}
+                content={item.content}
+                id={item.id}
+                type={item.type}
+                results={results}
+                setResults={setResults}
+              />
+            ))}
             <div className="action-container">
               <button onClick={applySettings}>Apply Changes</button>
             </div>

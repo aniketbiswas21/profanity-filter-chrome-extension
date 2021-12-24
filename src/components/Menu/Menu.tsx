@@ -1,6 +1,6 @@
 import React from "react";
-import { MenuContainer } from "./Menu.styles";
 
+import { MenuContainer } from "./Menu.styles";
 interface MenuProps {
   children: React.ReactNode;
 }

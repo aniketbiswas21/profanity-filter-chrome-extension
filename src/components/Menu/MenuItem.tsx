@@ -2,15 +2,14 @@
 import React, { useCallback } from "react";
 import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
-import { IResult } from "../../hooks/useDOMEvaluator";
 
+import { IResult } from "../../hooks/useDOMEvaluator";
 import { MenuItemContainer } from "./Menu.styles";
 
 export enum MenuItemType {
   Switch = "switch",
   Input = "input",
   Tags = "tags",
-  Display = "display",
 }
 
 interface MenuProps {
@@ -19,7 +18,6 @@ interface MenuProps {
   results: IResult;
   setResults: React.Dispatch<React.SetStateAction<IResult>>;
   id: keyof IResult;
-  data?: number;
 }
 
 const MenuItem: React.FC<MenuProps> = ({
@@ -28,7 +26,6 @@ const MenuItem: React.FC<MenuProps> = ({
   id,
   results,
   setResults,
-  data,
 }) => {
   const onChange = useCallback(
     (e: React.ChangeEvent<any>) => {
@@ -52,7 +49,7 @@ const MenuItem: React.FC<MenuProps> = ({
   );
 
   const renderInputField = useCallback(
-    (type: MenuItemType, data?: number) => {
+    (type: MenuItemType) => {
       if (type === "switch") {
         return (
           <div className="checkbox-container">
@@ -75,7 +72,7 @@ const MenuItem: React.FC<MenuProps> = ({
             onChange={onChange}
           />
         );
-      } else if (type === "tags") {
+      } else {
         return (
           <TagsInput
             className="tags-div"
@@ -90,19 +87,15 @@ const MenuItem: React.FC<MenuProps> = ({
             }}
           />
         );
-      } else {
-        return (
-          <div className="display-container">{`${data || 0} occurences`}</div>
-        );
       }
     },
-    [results, data]
+    [results]
   );
 
   return (
     <MenuItemContainer type={type}>
       <p className="content-box">{content}</p>
-      {renderInputField(type, data)}
+      {renderInputField(type)}
     </MenuItemContainer>
   );
 };
