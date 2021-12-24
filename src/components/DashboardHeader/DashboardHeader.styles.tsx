@@ -9,13 +9,13 @@ export const Navbar = styled.nav`
   width: 100%;
 
   .logo {
-    width: 45px;
+    width: 30px;
     object-fit: contain;
     margin: 0;
   }
 
   .title {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: bold;
     margin: 0 0 0 0.6rem;
 

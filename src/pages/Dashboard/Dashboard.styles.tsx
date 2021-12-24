@@ -6,7 +6,7 @@ export const DashboardContainer = styled.div`
 
   .dashboard-title {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 0.85rem;
   }
 
   .progress-container {
@@ -19,16 +19,17 @@ export const DashboardContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 100px;
+    height: 70px;
   }
 
   .indicator-subheading {
-    font-size: 1rem;
+    font-size: 0.7rem;
     font-weight: bold;
+    margin: 0.4rem;
   }
 
   .report-text {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     text-decoration: underline;
     cursor: pointer;
     margin: 0;

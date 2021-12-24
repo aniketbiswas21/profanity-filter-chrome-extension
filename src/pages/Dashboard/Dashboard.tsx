@@ -3,10 +3,9 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 import useDOMEvaluator, { IResult } from "../../hooks/useDOMEvaluator";
-import { Menu, MenuItem } from "../../components";
+import { Menu, MenuItem, ReportItem } from "../../components";
 import { MenuItemType } from "../../components/Menu/MenuItem";
 import { DashboardContainer } from "./Dashboard.styles";
-import ReportItem from "../../components/ReportItem/ReportItem";
 
 interface IMenuItem {
   content: string;

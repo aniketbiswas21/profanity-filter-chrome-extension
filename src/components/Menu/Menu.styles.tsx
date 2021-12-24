@@ -19,9 +19,11 @@ export const MenuItemContainer = styled.div<MenuItemProps>`
   padding: 0.5rem 0;
   border-bottom: 0.3px solid ${({ theme }) => theme.border};
 
-  .content-block {
+  .content-box {
     max-width: 70%;
-    white-space: pre-wrap;
+    white-space: nowrap;
+    font-size: 0.8rem;
+    margin: 0.5rem 0;
   }
 
   .checkbox-container {
@@ -91,7 +93,7 @@ export const MenuItemContainer = styled.div<MenuItemProps>`
   }
 
   .input-box {
-    padding: 0.8rem;
+    padding: 0.6rem;
     background-color: #00000057;
     color: #fff;
     border: none;
@@ -104,7 +106,7 @@ export const MenuItemContainer = styled.div<MenuItemProps>`
 
   .tags-div {
     background-color: #00000057;
-    padding: 0.8rem;
+    padding: 0.6rem;
     border-radius: 5px;
     cursor: text;
   }
